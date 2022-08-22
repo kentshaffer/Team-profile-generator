@@ -1,7 +1,8 @@
 const Manager = require('./employees/Manager')
 const Engineer = require('./employees/Engineer')
 const Intern = require('./employees/Intern')
-const inquirer = require('inquirer')
+const inquirer = require('inquirer');
+const { createReadStream } = require('fs');
 
 console.log('create your team');
 
@@ -21,7 +22,100 @@ console.log('create your team');
 
 // style employee cards w/ css
 
-
+function buildBoss() {
+  inquirer.prompt([
+    {
+      type: 'input',
+      name: 'name',
+      message: 'What is the managers name?'
+    },
+    {
+      type: 'input',
+      name: 'id',
+      message: 'What is the managers employee ID?'
+    },
+    {
+      type: 'input',
+      name: 'email',
+      message: 'What is the managers email address?'
+    },
+    {
+      type: 'input',
+      name: 'officeNumber',
+      message: 'What is the managers office number?'
+    },
+  ])
+}
+function addTeam() {
+  inquirer.prompt([
+    {
+      type: 'list',
+      name: 'addTeamMembers',
+      message: 'What type of team member would you like to add?',
+      choices: ['Engineer', 'Intern', 'None - Team is complete']
+    },
+  ])
+  .then((memberChoice) => {
+    switch (memberChoice.addTeamMembers) {
+      case 'Engineer':
+        createEngineer();
+        break;
+      case 'Intern':
+        createIntern();
+        break;
+      default:
+        createTeam();
+    }
+  });
+}
+function createEngineer() {
+  inquirer.prompt([
+    {
+      type: 'input',
+      name: 'name',
+      message: 'What is the engineers name?'
+    },
+    {
+      type: 'input',
+      name: 'id',
+      message: 'What is the engineers employee ID?'
+    },
+    {
+      type: 'input',
+      name: 'email',
+      message: 'What is the engineers email address?'
+    },
+    {
+      type: 'input',
+      name: 'github',
+      message: 'What is the engineers GitHub username?'
+    },
+  ])
+}
+function createIntern() {
+  inquirer.prompt([
+    {
+      type: 'input',
+      name: 'name',
+      message: 'What is the interns name?'
+    },
+    {
+      type: 'input',
+      name: 'id',
+      message: 'What is the interns employee ID?'
+    },
+    {
+      type: 'input',
+      name: 'email',
+      message: 'What is the interns email address?'
+    },
+    {
+      type: 'input',
+      name: 'school',
+      message: 'What school does the intern attend?'
+    },
+  ])
+}
 
 
 
